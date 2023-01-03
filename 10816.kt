@@ -9,26 +9,17 @@ fun main() {
     val bw = BufferedWriter(OutputStreamWriter(System.out))
 
     val n = br.readLine().toInt()
+    val arr = IntArray(20_000_001) // index 0 == -10,000,000 | index 10,000,000 = 0
     val cards = br.readLine().split(" ").map { it.toInt() }
-    val cardMap = mutableMapOf<Int, Int>()
     cards.forEach {
-        if(cardMap.contains(it)){
-            cardMap.put(it, cardMap[it]!! +1)
-        } else{
-            cardMap.put(it, 1)
-        }
+        arr[10_000_000 + it]++
     }
 
     val m = br.readLine().toInt()
-    val checks = br.readLine().split(" ").map { it.toInt() }
-
     val sb = StringBuilder()
+    val checks = br.readLine().split(" ").map { it.toInt() }
     checks.forEach {
-        if(cardMap.contains(it)){
-            sb.append("${cardMap[it]} ")
-        } else{
-            sb.append("0 ")
-        }
+        sb.append("${arr[10_000_000+it]} ")
     }
 
     bw.write(sb.toString())
