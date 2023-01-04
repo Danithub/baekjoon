@@ -10,42 +10,17 @@ fun main() {
 
     val (n,m) = br.readLine().split(" ").map { it.toInt() }
 
-    val A = br.readLine().split(" ").map { it.toInt() }.sorted()
-    val B = br.readLine().split(" ").map { it.toInt() }.sorted()
+    val A = br.readLine().split(" ").map { it.toInt() }.toSet()
+    val B = br.readLine().split(" ").map { it.toInt() }.toSet()
 
-    var cnt = 0
-    repeat(n){
-        if(!binarySearch(B, A[it])){
-            cnt++
-        }
-    }
+    val gong = mutableSetOf<Int>()
+    gong.addAll(A)
+    gong.addAll(B) //A, B의 공집합
 
-    repeat(m){
-        if(!binarySearch(A, B[it])){
-            cnt++
-        }
-    }
+    val rest = A.size + B.size - gong.size //공집합을 제외한 수
+    val cnt = A.size + B.size - (rest * 2)
+
 
     bw.write("$cnt")
     bw.flush()
-}
-
-fun binarySearch(arr: List<Int>, number:Int):Boolean{
-    var low = 0
-    var high = arr.size - 1
-    var mid = 0
-
-    while (low <= high){
-        mid = (low + high) / 2
-
-        if(arr[mid] == number){
-            return true
-        } else if (arr[mid] > number){
-            high = mid - 1
-        } else {
-            low = mid + 1
-        }
-    }
-
-    return false
 }
